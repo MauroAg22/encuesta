@@ -2,30 +2,39 @@
 
 class encuesta {
 
-    function conectar() {
+    function __construct($servername, $username, $password, $dbname)
+    {
         $servername = "localhost"; // 127.0.0.1
         $username = "root";
         $password = "";
         $dbname = "encuesta";
+    }
+    
+    
+
+    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+
+
+    function conectar() {
+        
 
         try {
-            $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+            
             $conn -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             echo "Connected successfully";
+            echo gettype($conn);
         } catch (PDOException $e) {
             echo "Connection failed: " . $e -> getMessage();
+            
         }
     }
 
+    function desconectar() {
+        // $conn = null;
+        echo gettype($conn);
+    }
+
 }
-
-
-
-
-
-
-
-
 
 
 ?>
@@ -80,9 +89,14 @@ class encuesta {
 if ($_POST) {
     $respuesta = $_POST["encuesta"];
 
-    echo $respuesta;
+    echo $respuesta . "<br><br>";
 }
 
+
+$miObjeto = new encuesta();
+
+$miObjeto->conectar();
+$miObjeto->desconectar();
 
 
 
