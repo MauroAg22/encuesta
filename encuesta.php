@@ -1,37 +1,39 @@
 <?php
 
-class encuesta {
+class EncuestaBD
+{
+    private $servidor, $usuario, $contrasenia, $nombrebd, $conexion;
 
-    function __construct($servername, $username, $password, $dbname)
+    public function __construct($servidor, $usuario, $contrasenia, $nombrebd)
     {
-        $servername = "localhost"; // 127.0.0.1
-        $username = "root";
-        $password = "";
-        $dbname = "encuesta";
+        $this->servidor = $servidor;
+        $this->usuario = $usuario;
+        $this->contrasenia = $contrasenia;
+        $this->nombrebd = $nombrebd;
     }
-    
-    
 
-    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-
-
-    function conectar() {
-        
-
+    public function conectar() {
         try {
-            
-            $conn -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            echo "Connected successfully";
-            echo gettype($conn);
-        } catch (PDOException $e) {
-            echo "Connection failed: " . $e -> getMessage();
-            
+            $this->conexion = new PDO("mysql:host=$this->servidor;dbname=$this->nombrebd", $this->usuario, $this->contrasenia);
+            $this->conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            echo "Conexión establecida";
+        } catch (PDOException $error) {
+            echo "Conexion erronea: " . $error->getMessage();
         }
     }
 
-    function desconectar() {
-        // $conn = null;
-        echo gettype($conn);
+    public function votar($miVoto) {
+        try {
+            $sql = "INSERT INTO `fotos` (`id`, `nombre`, `ruta`) VALUES (NULL, 'Foto de perfil', 'perfil.png');";
+            $this->conexion->exec($sql);
+            echo "Registro insertado correctamente";
+        } catch (PDOException $error) {
+            echo "Error al insertar registro: " . $error->getMessage();
+        }
+    }
+
+    public function desconectar() {
+        $this->conexion = null;
     }
 
 }
@@ -47,6 +49,11 @@ class encuesta {
     <meta charset="UTF-8">
     <meta name="viewport" content="wvalueth=device-wvalueth, initial-scale=1.0">
     <style>
+        h2 {
+            margin: 0;
+            padding: 0;
+        }
+
         body {
             background-color: #222;
             color: #fff;
@@ -58,7 +65,7 @@ class encuesta {
 
 <body>
     <form action="encuesta.php" method="post">
-        ¿Quién gana el superclásico este domingo?
+        <h2>¿Quién gana el superclásico este domingo?</h2>
         <br><br>
         <label>
             <input type="radio" name="encuesta" value="1" required>River Plate
@@ -89,21 +96,20 @@ class encuesta {
 if ($_POST) {
     $respuesta = $_POST["encuesta"];
 
+
+
+    $Encuesta = new EncuestaBD("localhost", "root", "", "encuesta");
+
+    $Encuesta->conectar();
+
+    // $Encuesta->votar($respuesta);
+
+    $Encuesta->desconectar();
+
+
     echo $respuesta . "<br><br>";
 }
 
 
-$miObjeto = new encuesta();
-
-$miObjeto->conectar();
-$miObjeto->desconectar();
-
-
-
-
 
 ?>
-
-
-
-
