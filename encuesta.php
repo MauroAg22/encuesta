@@ -1,7 +1,6 @@
 <?php
 
-class EncuestaBD
-{
+class EncuestaBD {
     private $servidor, $usuario, $contrasenia, $nombrebd, $conexion;
 
     public function __construct($servidor, $usuario, $contrasenia, $nombrebd)
@@ -16,20 +15,54 @@ class EncuestaBD
         try {
             $this->conexion = new PDO("mysql:host=$this->servidor;dbname=$this->nombrebd", $this->usuario, $this->contrasenia);
             $this->conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            echo "Conexión establecida";
+            // echo "Conexión establecida";
         } catch (PDOException $error) {
             echo "Conexion erronea: " . $error->getMessage();
         }
     }
 
     public function votar($miVoto) {
-        try {
-            $sql = "INSERT INTO `fotos` (`id`, `nombre`, `ruta`) VALUES (NULL, 'Foto de perfil', 'perfil.png');";
-            $this->conexion->exec($sql);
-            echo "Registro insertado correctamente";
-        } catch (PDOException $error) {
-            echo "Error al insertar registro: " . $error->getMessage();
+
+        switch ($miVoto) {
+            case 1:
+                $sql = "INSERT INTO `urna` (`id`, `candidato1`, `candidato2`, `candidato3`, `candidato4`) VALUES (NULL, '1', NULL, NULL, NULL);";
+                try {
+                    $this->conexion->exec($sql);
+                    echo "Respuesta enviada correctamente";
+                } catch (PDOException $error) {
+                    echo "Error al insertar registro: " . $error->getMessage();
+                }
+                break;
+            case 2:
+                $sql = "INSERT INTO `urna` (`id`, `candidato1`, `candidato2`, `candidato3`, `candidato4`) VALUES (NULL, NULL, '1', NULL, NULL);";
+                try {
+                    $this->conexion->exec($sql);
+                    echo "Respuesta enviada correctamente";
+                } catch (PDOException $error) {
+                    echo "Error al insertar registro: " . $error->getMessage();
+                }
+                break;
+            case 3:
+                $sql = "INSERT INTO `urna` (`id`, `candidato1`, `candidato2`, `candidato3`, `candidato4`) VALUES (NULL, NULL, NULL, '1', NULL);";
+                try {
+                    $this->conexion->exec($sql);
+                    echo "Respuesta enviada correctamente";
+                } catch (PDOException $error) {
+                    echo "Error al insertar registro: " . $error->getMessage();
+                }
+                break;
+            case 4:
+                $sql = "INSERT INTO `urna` (`id`, `candidato1`, `candidato2`, `candidato3`, `candidato4`) VALUES (NULL, NULL, NULL, NULL, '1');";
+                try {
+                    $this->conexion->exec($sql);
+                    echo "Respuesta enviada correctamente";
+                } catch (PDOException $error) {
+                    echo "Error al insertar registro: " . $error->getMessage();
+                }
+                break;
         }
+
+        $sql =  "";
     }
 
     public function desconectar() {
@@ -37,7 +70,6 @@ class EncuestaBD
     }
 
 }
-
 
 ?>
 
@@ -65,25 +97,26 @@ class EncuestaBD
 
 <body>
     <form action="encuesta.php" method="post">
-        <h2>¿Quién gana el superclásico este domingo?</h2>
+        <h2>¿Quién ganará las elecciones?</h2>
         <br><br>
         <label>
-            <input type="radio" name="encuesta" value="1" required>River Plate
+            <input type="radio" name="encuesta" value="1" required>Candidato 1
         </label>
         <br>
         <label>
-            <input type="radio" name="encuesta" value="2">Boca Juniors
+            <input type="radio" name="encuesta" value="2">Candidato 2
         </label>
         <br>
         <label>
-            <input type="radio" name="encuesta" value="3">Termina en empate
+            <input type="radio" name="encuesta" value="3">Candidato 3
         </label>
         <br>
         <label>
-            <input type="radio" name="encuesta" value="4">El partido se suspende
+            <input type="radio" name="encuesta" value="4">Candidato 4
         </label>
         <br><br>
         <input type="submit" value="Enviar">
+        <br><br>
     </form>
 </body>
 
@@ -94,22 +127,18 @@ class EncuestaBD
 
 
 if ($_POST) {
-    $respuesta = $_POST["encuesta"];
-
-
-
     $Encuesta = new EncuestaBD("localhost", "root", "", "encuesta");
+
+    $respuesta = $_POST["encuesta"];
 
     $Encuesta->conectar();
 
-    // $Encuesta->votar($respuesta);
+    $Encuesta->votar($respuesta);
 
     $Encuesta->desconectar();
 
+    $respuesta = 0;
 
-    echo $respuesta . "<br><br>";
 }
-
-
 
 ?>
