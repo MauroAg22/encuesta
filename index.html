@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="wvalueth=device-wvalueth, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Encuesta</title>
+</head>
+
+<body>
+    <form action="encuesta.php" method="post">
+        <h2>¿Quién ganará las elecciones?</h2>
+        <br><br>
+        <label>
+            <input type="radio" name="encuesta" value="1" required>Candidato 1
+        </label>
+        <br>
+        <label>
+            <input type="radio" name="encuesta" value="2">Candidato 2
+        </label>
+        <br>
+        <label>
+            <input type="radio" name="encuesta" value="3">Candidato 3
+        </label>
+        <br>
+        <label>
+            <input type="radio" name="encuesta" value="4">Candidato 4
+        </label>
+        <br><br>
+        <input type="submit" value="ENVIAR">
+        <br><br>
+    </form>
+
+    <a href="resultados.php"><button>Ver resultados de encuesta</button></a>
+
+</body>
+
+</html>
