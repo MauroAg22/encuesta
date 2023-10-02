@@ -1,7 +1,7 @@
 <?php
 
 class EncuestaBD {
-    private $servidor, $usuario, $contrasenia, $nombrebd, $conexion;
+    private $servidor, $usuario, $contrasenia, $nombrebd, $conexion, $enviados = false;
 
     public function __construct($servidor, $usuario, $contrasenia, $nombrebd)
     {
@@ -9,6 +9,12 @@ class EncuestaBD {
         $this->usuario = $usuario;
         $this->contrasenia = $contrasenia;
         $this->nombrebd = $nombrebd;
+    }
+
+    public function __destruct() {
+        if ($this->conexion != null) {
+            $this->desconectar();
+        }
     }
 
     public function conectar() {
@@ -28,7 +34,7 @@ class EncuestaBD {
                 $sql = "INSERT INTO `urna` (`id`, `candidato1`, `candidato2`, `candidato3`, `candidato4`) VALUES (NULL, '1', NULL, NULL, NULL);";
                 try {
                     $this->conexion->exec($sql);
-                    echo "<h1>Respuesta enviada correctamente</h2>";
+                    $this->enviados = true;
                 } catch (PDOException $error) {
                     echo "Error al insertar registro: " . $error->getMessage();
                 }
@@ -37,7 +43,7 @@ class EncuestaBD {
                 $sql = "INSERT INTO `urna` (`id`, `candidato1`, `candidato2`, `candidato3`, `candidato4`) VALUES (NULL, NULL, '1', NULL, NULL);";
                 try {
                     $this->conexion->exec($sql);
-                    echo "<h1>Respuesta enviada correctamente</h2>";
+                    $this->enviados = true;
                 } catch (PDOException $error) {
                     echo "Error al insertar registro: " . $error->getMessage();
                 }
@@ -46,7 +52,7 @@ class EncuestaBD {
                 $sql = "INSERT INTO `urna` (`id`, `candidato1`, `candidato2`, `candidato3`, `candidato4`) VALUES (NULL, NULL, NULL, '1', NULL);";
                 try {
                     $this->conexion->exec($sql);
-                    echo "<h1>Respuesta enviada correctamente</h2>";
+                    $this->enviados = true;
                 } catch (PDOException $error) {
                     echo "Error al insertar registro: " . $error->getMessage();
                 }
@@ -55,7 +61,7 @@ class EncuestaBD {
                 $sql = "INSERT INTO `urna` (`id`, `candidato1`, `candidato2`, `candidato3`, `candidato4`) VALUES (NULL, NULL, NULL, NULL, '1');";
                 try {
                     $this->conexion->exec($sql);
-                    echo "<h1>Respuesta enviada correctamente</h2>";
+                    $this->enviados = true;
                 } catch (PDOException $error) {
                     echo "Error al insertar registro: " . $error->getMessage();
                 }
@@ -67,6 +73,15 @@ class EncuestaBD {
 
     public function desconectar() {
         $this->conexion = null;
+    }
+
+
+    public function redirigir() {
+        if ($this->enviados) {
+            header("Location: datos-enviados.html");
+        } else {
+            header("Location: error-envio.html");
+        }
     }
 
 }
