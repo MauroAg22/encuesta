@@ -71,6 +71,20 @@ class EncuestaBD {
         $sql =  "";
     }
 
+    public function  consultar($candidato) {
+        $cantVotos = 0;
+
+        $sql = "SELECT COUNT(*) AS total FROM urna WHERE $candidato IS NOT NULL;"; // Sentencia SQL
+
+        $sentencia = $this->conexion->prepare($sql); // Preparo la selección
+
+        $sentencia->execute(); // Ejecuto
+
+        $resultado = $sentencia->fetchAll(); // Obtengo los resultados
+
+        return $resultado[0]["total"];
+    }
+
     public function desconectar() {
         $this->conexion = null;
     }
