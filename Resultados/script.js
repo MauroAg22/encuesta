@@ -12,7 +12,7 @@ function cargarDatos() {
             resultadoDiv.innerHTML = `<ul id="lista-votos"></ul>`;
 
             for (let candidato in resultados) {
-                document.getElementById("lista-votos").innerHTML += "<li>El " + candidato + " tiene " + resultados[candidato] + " acumulados</li>";
+                document.getElementById("lista-votos").innerHTML += "<li>El " + candidato + " tiene " + resultados[candidato] + " votos.</li>";
             }
 
 
@@ -29,7 +29,7 @@ function cargarDatos() {
             porcentajes.innerHTML = `<ul id="lista-porcentajes"></ul>`;
             
             for (let candidato in resultados) {
-                document.getElementById("lista-porcentajes").innerHTML += "<li>El " + candidato + " tiene el " + promedios[i] + "% de los votos</li>";
+                document.getElementById("lista-porcentajes").innerHTML += "<li>El " + candidato + " tiene el " + promedios[i] + "% de los votos.</li>";
                 i++;
             }
 
