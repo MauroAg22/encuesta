@@ -92,9 +92,9 @@ class EncuestaBD {
 
     public function redirigir() {
         if ($this->enviados) {
-            header("Location: datos-enviados.html");
+            header("Location: Envio/");
         } else {
-            header("Location: error-envio.html");
+            header("Location: Envio/error.html");
         }
     }
 

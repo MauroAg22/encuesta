@@ -7,13 +7,13 @@ function cargarDatos() {
             let respuesta = xhr.responseText;
             let resultados = JSON.parse(respuesta);
 
-            const resultadoDiv = document.getElementById("resultado");
+            const resultadoDiv = document.getElementById("votos");
             
-            resultadoDiv.innerHTML = "<ul>";
+            resultadoDiv.innerHTML = `<ul id="lista-votos"></ul>`;
+
             for (let candidato in resultados) {
-                resultadoDiv.innerHTML += "<li>El " + candidato + " tiene " + resultados[candidato] + " acumulados</li>";
+                document.getElementById("lista-votos").innerHTML += "<li>El " + candidato + " tiene " + resultados[candidato] + " acumulados</li>";
             }
-            resultadoDiv.innerHTML += "</ul>";
 
 
 
@@ -26,14 +26,12 @@ function cargarDatos() {
             }
 
 
-            porcentajes.innerHTML = "<ul>";
+            porcentajes.innerHTML = `<ul id="lista-porcentajes"></ul>`;
             
             for (let candidato in resultados) {
-                porcentajes.innerHTML += "<li>El " + candidato + " tiene un promedio de " + promedios[i] + "% de votos</li>";
+                document.getElementById("lista-porcentajes").innerHTML += "<li>El " + candidato + " tiene el " + promedios[i] + "% de los votos</li>";
                 i++;
             }
-
-            porcentajes.innerHTML += "</ul>";
 
 
         }
