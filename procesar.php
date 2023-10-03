@@ -3,7 +3,7 @@
 require "clases.php";
 
 if ($_POST) {
-    $Encuesta = new EncuestaBD("localhost", "root", "", "encuesta");
+    $Encuesta = new EncuestaBD("sql10.freesqldatabase.com", "sql10650596", "fumNvyLBuQ", "sql10650596");
 
     $respuesta = $_POST["encuesta"];
 
