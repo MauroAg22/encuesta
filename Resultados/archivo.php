@@ -13,6 +13,5 @@ $resultados = Array(
     "candidato4" => $Encuesta->consultar("candidato4")
 );
 
-// Devolver una respuesta JSON con el arreglo
 echo json_encode($resultados);
 ?>

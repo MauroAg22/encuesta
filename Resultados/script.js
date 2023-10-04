@@ -1,4 +1,3 @@
-// Definir una función para realizar la solicitud AJAX y mostrar los datos
 function cargarDatos() {
     let xhr = new XMLHttpRequest();
     xhr.open("GET", "archivo.php", true);
@@ -15,8 +14,6 @@ function cargarDatos() {
                 document.getElementById("lista-votos").innerHTML += "<li>El " + candidato + " tiene " + resultados[candidato] + " votos.</li>";
             }
 
-
-
             const porcentajes = document.getElementById("porcentajes");
             let totalVotos = resultados["candidato1"] + resultados["candidato2"] + resultados["candidato3"] + resultados["candidato4"];
             let promedios = [], i = 0;
@@ -25,7 +22,6 @@ function cargarDatos() {
                 promedios.push(parseFloat((resultados[candidato] / totalVotos * 100).toFixed(2)));
             }
 
-
             porcentajes.innerHTML = `<ul id="lista-porcentajes"></ul>`;
             
             for (let candidato in resultados) {
@@ -33,11 +29,9 @@ function cargarDatos() {
                 i++;
             }
 
-
         }
     };
     xhr.send();
 }
 
-// Llamar a la función cargarDatos cuando la página se carga
 window.onload = cargarDatos;

@@ -3,8 +3,7 @@
 class EncuestaBD {
     private $servidor, $usuario, $contrasenia, $nombrebd, $conexion, $enviados = false;
 
-    public function __construct($servidor, $usuario, $contrasenia, $nombrebd)
-    {
+    public function __construct($servidor, $usuario, $contrasenia, $nombrebd) {
         $this->servidor = $servidor;
         $this->usuario = $usuario;
         $this->contrasenia = $contrasenia;
@@ -28,7 +27,6 @@ class EncuestaBD {
     }
 
     public function votar($miVoto) {
-
         switch ($miVoto) {
             case 1:
                 $sql = "INSERT INTO `urna` (`id`, `candidato1`, `candidato2`, `candidato3`, `candidato4`) VALUES (NULL, '1', NULL, NULL, NULL);";
@@ -67,13 +65,9 @@ class EncuestaBD {
                 }
                 break;
         }
-
-        $sql =  "";
     }
 
     public function  consultar($candidato) {
-        $cantVotos = 0;
-
         $sql = "SELECT COUNT(*) AS total FROM urna WHERE $candidato IS NOT NULL;"; // Sentencia SQL
 
         $sentencia = $this->conexion->prepare($sql); // Preparo la selección
@@ -89,7 +83,6 @@ class EncuestaBD {
         $this->conexion = null;
     }
 
-
     public function redirigir() {
         if ($this->enviados) {
             header("Location: Envio/");
@@ -97,7 +90,6 @@ class EncuestaBD {
             header("Location: Envio/error.html");
         }
     }
-
 }
 
 ?>
