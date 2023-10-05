@@ -96,6 +96,24 @@ class EncuestaBD {
             header("Location: Envio/error.html");
         }
     }
+
+    public function validar($dni) {
+        $puedeVotar = false;
+
+        $sql = "SELECT CASE WHEN EXISTS (SELECT 1 FROM padron WHERE dni = $dni) THEN 1 ELSE 0 END AS existe;";
+
+        $sentencia = $this->conexion->prepare($sql); // Preparo la selección
+
+        $sentencia->execute(); // Ejecuto
+
+        $resultado = $sentencia->fetchAll();
+
+        if ($resultado[0]["existe"] === 1) {
+            $puedeVotar = true;
+        }
+
+        return $puedeVotar;
+    }
 }
 
 ?>

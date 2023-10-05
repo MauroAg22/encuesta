@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../style.css">
+    <script src="verificarForm.js"></script>
+    <title>Elecciones</title>
+</head>
+<body>
+    <form name="miFormulario" action="validar.php" method="post"onsubmit="return validarFormulario()">
+        <label>DNI: <input type="text" name="dni" id=""></label>
+        <input type="submit" value="VERIFICAR">
+    </form>
+    <br>
+    <div id="verificacion">
+        <div id=""></div>
+        <br>
+        <a href="#">
+            <input id="btnVotar" type="button" value="IR A VOTAR" disabled>
+        </a>
+    </div>
+</body>
+</html>
