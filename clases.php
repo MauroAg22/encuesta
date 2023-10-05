@@ -29,7 +29,8 @@ class EncuestaBD {
     public function votar($miVoto) {
         switch ($miVoto) {
             case 1:
-                $sql = "INSERT INTO `urna` (`id`, `candidato1`, `candidato2`, `candidato3`, `candidato4`) VALUES (NULL, '1', NULL, NULL, NULL);";
+                // $sql = "INSERT INTO `urna` (`id`, `candidato1`, `candidato2`, `candidato3`, `candidato4`) VALUES (NULL, '1', NULL, NULL, NULL);";
+                $sql = "INSERT INTO `urna` (`candidato1`) VALUES ('1');";
                 try {
                     $this->conexion->exec($sql);
                     $this->enviados = true;
@@ -38,7 +39,8 @@ class EncuestaBD {
                 }
                 break;
             case 2:
-                $sql = "INSERT INTO `urna` (`id`, `candidato1`, `candidato2`, `candidato3`, `candidato4`) VALUES (NULL, NULL, '1', NULL, NULL);";
+                // $sql = "INSERT INTO `urna` (`id`, `candidato1`, `candidato2`, `candidato3`, `candidato4`) VALUES (NULL, NULL, '1', NULL, NULL);";
+                $sql = "INSERT INTO `urna` (`candidato2`) VALUES ('1');";
                 try {
                     $this->conexion->exec($sql);
                     $this->enviados = true;
@@ -47,7 +49,8 @@ class EncuestaBD {
                 }
                 break;
             case 3:
-                $sql = "INSERT INTO `urna` (`id`, `candidato1`, `candidato2`, `candidato3`, `candidato4`) VALUES (NULL, NULL, NULL, '1', NULL);";
+                // $sql = "INSERT INTO `urna` (`id`, `candidato1`, `candidato2`, `candidato3`, `candidato4`) VALUES (NULL, NULL, NULL, '1', NULL);";
+                $sql = "INSERT INTO `urna` (`candidato3`) VALUES ('1');";
                 try {
                     $this->conexion->exec($sql);
                     $this->enviados = true;
@@ -56,7 +59,8 @@ class EncuestaBD {
                 }
                 break;
             case 4:
-                $sql = "INSERT INTO `urna` (`id`, `candidato1`, `candidato2`, `candidato3`, `candidato4`) VALUES (NULL, NULL, NULL, NULL, '1');";
+                // $sql = "INSERT INTO `urna` (`id`, `candidato1`, `candidato2`, `candidato3`, `candidato4`) VALUES (NULL, NULL, NULL, NULL, '1');";
+                $sql = "INSERT INTO `urna` (`candidato4`) VALUES ('1');";
                 try {
                     $this->conexion->exec($sql);
                     $this->enviados = true;
@@ -68,7 +72,9 @@ class EncuestaBD {
     }
 
     public function  consultar($candidato) {
-        $sql = "SELECT COUNT(*) AS total FROM urna WHERE $candidato IS NOT NULL;"; // Sentencia SQL
+        
+        // $sql = "SELECT COUNT(*) AS total FROM urna WHERE $candidato IS NOT NULL;";  Sentencia SQL
+        $sql = "SELECT COUNT($candidato) AS total FROM urna;";
 
         $sentencia = $this->conexion->prepare($sql); // Preparo la selección
 
